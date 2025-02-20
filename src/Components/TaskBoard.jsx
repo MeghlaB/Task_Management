@@ -22,30 +22,14 @@ const TaskBoard = () => {
     setNewTask({ ...newTask, [e.target.name]: e.target.value });
   };
 
-//  const handleFormSubmit = async (e) => {
-//   e.preventDefault();
-//   if (!newTask.title.trim()) return toast.error("Title is required!");
-//   if (newTask.title.length > 50) return toast.error("Title too long!");
-
-//   try {
-//     const res = await axios.post(API_URL, newTask);
-//     console.log("Response from server:", res);
-//     setTasks([...tasks, res.data]);
-//     setShowForm(false);
-//     setNewTask({ title: "", description: "", category: "To-Do" });
-//   } catch (error) {
-//     console.error("Error submitting task:", error);
-//     toast.error("Failed to add task!");
-//   }
-// };
-const handleFormSubmit = async (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (!newTask.title.trim()) return toast.error("Title is required!");
     if (newTask.title.length > 50) return toast.error("Title too long!");
-  
+
     try {
       await axios.post(API_URL, newTask);
-      const res = await axios.get(API_URL); // নতুন করে ডাটা লোড করা
+      const res = await axios.get(API_URL); ``
       setTasks(res.data);
       setShowForm(false);
       setNewTask({ title: "", description: "", category: "To-Do" });
@@ -54,8 +38,6 @@ const handleFormSubmit = async (e) => {
       toast.error("Failed to add task!");
     }
   };
-  
-
 
   const deleteTask = async (id) => {
     await axios.delete(`${API_URL}/${id}`);
@@ -147,7 +129,7 @@ const handleFormSubmit = async (e) => {
       )}
 
       <DragDropContext onDragEnd={handleDragEnd}>
-        <div className="grid grid-cols-3 gap-4 w-full max-w-4xl">
+        <div className="grid grid-cols-3 gap-4 w-full max-w-4xl text-black">
           {["To-Do", "In Progress", "Done"].map((category) => (
             <Droppable key={category} droppableId={category}>
               {(provided) => (
@@ -160,7 +142,11 @@ const handleFormSubmit = async (e) => {
                   {tasks
                     .filter((task) => task.category === category)
                     .map((task, index) => (
-                      <Draggable key={task._id} draggableId={task._id} index={index}>
+                      <Draggable
+                        key={task._id}
+                        draggableId={task._id}
+                        index={index}
+                      >
                         {(provided) => (
                           <div
                             {...provided.draggableProps}
@@ -169,6 +155,11 @@ const handleFormSubmit = async (e) => {
                             className="bg-green-300 p-3 rounded-md flex justify-between items-center my-2"
                           >
                             <p>{task.title}</p>
+                            <div>
+                              <p className="text-xs text-gray-500">
+                                {new Date(task.createdAt).toLocaleString()}
+                              </p>
+                            </div>
                             <button
                               onClick={() => deleteTask(task._id)}
                               className="text-red-500"

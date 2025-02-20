@@ -12,10 +12,6 @@
   "dependencies": {
     "@hello-pangea/dnd": "^18.0.1",
     "@tailwindcss/vite": "^4.0.7",
-<<<<<<< HEAD
-    "axios": "^1.7.9",
-=======
->>>>>>> 01521d18853f4bea5068865126898dc1ce2821ec
     "firebase": "^11.3.1",
     "localforage": "^1.10.0",
     "match-sorter": "^8.0.0",
