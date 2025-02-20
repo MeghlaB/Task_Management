@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useContext } from 'react';
 import { Authcontext } from '../Contexts/Authcontext';
 import { useNavigate } from 'react-router-dom';
@@ -38,3 +39,18 @@ export default function Login() {
         </div>
     );
 }
+=======
+import  { useContext } from 'react'
+import { Authcontext } from '../Contexts/Authcontext'
+
+export default function Login() {
+    const {name} = useContext(Authcontext)
+    console.log(name)
+  return (
+    <div>
+      
+    </div>
+  )
+}
+
+>>>>>>> 01521d18853f4bea5068865126898dc1ce2821ec

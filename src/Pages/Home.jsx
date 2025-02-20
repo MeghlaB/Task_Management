@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useContext, useEffect } from "react";
 import { Authcontext } from "../Contexts/Authcontext";
 import { useNavigate } from "react-router-dom";
@@ -52,3 +53,19 @@ function Home() {
 }
 
 export default Home;
+=======
+import { useContext } from "react"
+import { Authcontext } from "../Contexts/Authcontext"
+
+function Home() {
+      const {name} = useContext(Authcontext)
+        console.log(name)
+  return (
+    <div>
+      
+    </div>
+  )
+}
+
+export default Home
+>>>>>>> 01521d18853f4bea5068865126898dc1ce2821ec

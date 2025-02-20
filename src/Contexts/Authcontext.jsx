@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../Firebase/Firebase_init";
@@ -60,3 +61,22 @@ export default function AuthProvider({ children }) {
         </Authcontext.Provider>
     );
 }
+=======
+import { createContext } from "react"
+
+
+
+export  const Authcontext = createContext(null)
+// eslint-disable-next-line react/prop-types
+export default function AuthProvider({children}) {
+    const info = {
+        name:'meghla'
+    }
+  return (
+   <Authcontext.Provider value={info}>
+{children}
+   </Authcontext.Provider>
+  )
+}
+
+>>>>>>> 01521d18853f4bea5068865126898dc1ce2821ec
