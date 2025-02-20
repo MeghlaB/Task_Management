@@ -1,18 +1,27 @@
 import { useContext } from 'react';
 import { Authcontext } from '../Contexts/Authcontext';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Login() {
-    const { login,user } = useContext(Authcontext);
-    const navigate = useNavigate();  
+    const { login, user } = useContext(Authcontext);
+    const navigate = useNavigate();
 
     const handleLogin = async () => {
         try {
             await login(); 
-            console.log(user)
-            navigate('/'); 
+            console.log("User logged in:", user);
+            if (user) {
+                await axios.post('http://localhost:5000/user', {
+                    userId: user?.uid,       
+                    displayName: user?.displayName,
+                    email: user?.email      
+                });
+
+                navigate('/');
+            }
         } catch (error) {
-            console.error("Login failed", error); 
+            console.error("Login failed", error);
         }
     };
 

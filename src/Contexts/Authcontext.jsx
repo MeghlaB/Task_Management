@@ -11,7 +11,7 @@ export default function AuthProvider({children}) {
     const login = async () => {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
-      setUser(result.user);
+      setUser(result?.user);
     };
   
     const logout = async () => {
