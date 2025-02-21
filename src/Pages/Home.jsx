@@ -30,7 +30,7 @@ function Home() {
     }
 
     return user ? (
-        <div className={`min-h-screen ${theme === "dark" ? "bg-gray-900 text-gray-200" : "bg-gray-50 text-gray-800"}`}>
+        <div className={`min-h-screen ${theme === "dark" ? "text-gray-200" : " text-gray-800"}`}>
             {/* Navbar */}
             <div className={`shadow-md py-4 px-6 flex justify-between items-center ${theme === "dark" ? "bg-gray-800 text-gray-200" : "bg-white text-gray-800"}`}>
                 <h1 className="text-2xl font-bold tracking-wide">📌 Task Manager</h1>

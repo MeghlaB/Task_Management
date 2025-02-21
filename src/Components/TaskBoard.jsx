@@ -128,7 +128,7 @@ const TaskBoard = () => {
   };
 
   return (
-    <div className={`min-h-screen bg-gray-100 flex flex-col items-center p-5 ${theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100 text-black"}`}>
+    <div className={` bg-gray-100 flex flex-col items-center min-h-screen p-5 ${theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100 text-black"}`}>
       <Toaster />
       <h1 className="text-3xl font-bold ">Task Manager</h1>
       <button
