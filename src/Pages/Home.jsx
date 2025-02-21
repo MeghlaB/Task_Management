@@ -44,7 +44,7 @@ function Home() {
             {/* Task Board Section */}
             <div className="flex flex-col items-center mt-6 px-4">
                 <div className="w-full max-w-5xl bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6">
-                    <h2 className="text-xl font-semibold mb-4 text-center">Manage Your Tasks Efficiently</h2>
+                    <h2 className="text-xl font-semibold mb-4 text-center">{user?.displayName} Task</h2>
                     <TaskBoard />
                 </div>
             </div>
