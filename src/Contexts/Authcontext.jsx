@@ -33,7 +33,7 @@ export default function AuthProvider({ children }) {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            console.log("Auth State Changed:", currentUser);
+            // console.log("Auth State Changed:", currentUser);
             if (currentUser) {
                 localStorage.setItem("user", JSON.stringify(currentUser));
             } else {

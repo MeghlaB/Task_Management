@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import { ThemeContext } from "../Contexts/ThemeProvider";
 
 // const API_URL = "http://localhost:5000/tasks";
 const API_URL = "https://task-manager-backend-alpha-mocha.vercel.app/tasks";
 
 const TaskBoard = () => {
+  const { theme } = useContext(ThemeContext);
   const [tasks, setTasks] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [newTask, setNewTask] = useState({
@@ -20,7 +22,6 @@ const TaskBoard = () => {
     fetchTasks();
   }, []);
 
-  
   const fetchTasks = async () => {
     try {
       const res = await axios.get(API_URL);
@@ -127,9 +128,9 @@ const TaskBoard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-5">
+    <div className={`min-h-screen bg-gray-100 flex flex-col items-center p-5 ${theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100 text-black"}`}>
       <Toaster />
-      <h1 className="text-3xl font-bold text-gray-900">Task Manager</h1>
+      <h1 className="text-3xl font-bold ">Task Manager</h1>
       <button
         className="bg-blue-500 text-white px-4 py-2 rounded my-4"
         onClick={() => setShowForm(true)}
@@ -138,8 +139,8 @@ const TaskBoard = () => {
       </button>
 
       {showForm && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-          <div className=" p-5 rounded shadow-lg w-96 bg-gray-600">
+        <div className={`fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 ${theme === "dark"?"bg-gray-800 bg-opacity-50":"bg-white"}`}>
+          <div className={`p-5 rounded shadow-lg w-96 ${theme === "dark" ? "bg-gray-800 text-white" : "bg-base-300 text-black"}`}>
             <h2 className="text-xl mb-3">
               {editingTask ? "Edit Task" : "Add New Task"}
             </h2>
@@ -194,14 +195,14 @@ const TaskBoard = () => {
       )}
 
       <DragDropContext onDragEnd={handleDragEnd}>
-        <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-4 w-full max-w-4xl text-black ">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-4xl text-black">
           {["To-Do", "In Progress", "Done"].map((category) => (
             <Droppable key={category} droppableId={category}>
               {(provided) => (
                 <div
                   {...provided.droppableProps}
                   ref={provided.innerRef}
-                  className="bg-white p-4 border shadow rounded-lg min-h-[200px]"
+                  className={` p-4 border shadow rounded-lg min-h-[200px] ${theme === "dark" ? "bg-gray-700 text-white" : "bg-white text-black"}`}
                 >
                   <h2 className="text-lg font-semibold mb-2">{category}</h2>
                   {tasks
@@ -217,7 +218,7 @@ const TaskBoard = () => {
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
                             ref={provided.innerRef}
-                            className="bg-green-300 p-3 rounded-md flex justify-between items-center my-2"
+                            className={`p-3 rounded-md flex justify-between items-center my-2 ${theme === "dark" ? "bg-base-300 text-white/75 " : "bg-green-300 text-black"}`}
                           >
                             <div className="flex flex-col gap-1">
                               <p className="font-semibold">{task.title}</p>
