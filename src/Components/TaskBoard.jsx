@@ -5,8 +5,8 @@ import toast, { Toaster } from "react-hot-toast";
 import { ThemeContext } from "../Contexts/ThemeProvider";
 import { Authcontext } from "../Contexts/Authcontext";
 
-const API_URL = "http://localhost:5000/tasks";
-// const API_URL = "https://task-manager-backend-alpha-mocha.vercel.app/tasks";
+// const API_URL = "http://localhost:5000/tasks";
+const API_URL = "https://task-manager-backend-alpha-mocha.vercel.app/tasks";
 
 const TaskBoard = () => {
   const { user } = useContext(Authcontext);
@@ -92,29 +92,27 @@ const TaskBoard = () => {
   };
 
   const handleDragEnd = async (result) => {
-    const { source, destination } = result;
-
-    if (!destination) return;
-
+    const {  destination, draggableId } = result;
   
-    if (source.index !== destination.index || source.droppableId !== destination.droppableId) {
-      const reorderedTasks = [...tasks];
-      const [movedTask] = reorderedTasks.splice(source.index, 1);
-      movedTask.category = destination.droppableId; 
-      reorderedTasks.splice(destination.index, 0, movedTask);
-
-      try {
-        
-        await axios.put(`${API_URL}/update`, { tasks: reorderedTasks });
-        toast.success("Task order updated!");
-        setTasks(reorderedTasks);
-      } catch (error) {
-        console.error("Error updating task order:", error);
-        toast.error("Failed to update task order!");
-      }
+    if (!destination) return;
+    const updatedTasks = tasks.map((task) => {
+      if (task._id === draggableId) return { ...task, category: destination.droppableId };
+      return task;
+    });
+  
+    setTasks(updatedTasks);
+  
+    try {
+      await axios.put(`${API_URL}/${draggableId}`, { category: destination.droppableId });
+      toast.success("Task updated successfully!");
+    } catch (error) {
+      console.error("Error updating task:", error);
+      toast.error("Failed to update task!");
+      setTasks(tasks); 
     }
   };
-
+  
+  
   return (
     <div
       className={`bg-gray-100 flex flex-col items-center min-h-screen p-5 ${theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100 text-black"}`}
